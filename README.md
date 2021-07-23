@@ -47,9 +47,14 @@ Due to some issues with the GitHub statistics API, there are some situations
 where it returns inaccurate results. Specifically, the repository view count
 statistics and total lines of code modified are probably somewhat inaccurate.
 Unexpectedly, these values will become more accurate over time as GitHub
-caches statistics for your repositories. For more information, see issue
-[#2](https://github.com/jstrieb/github-stats/issues/2) and
-[#3](https://github.com/jstrieb/github-stats/issues/3).
+caches statistics for your repositories. Additionally, repositories that were
+last contributed to more than a year ago may not be included in the statistics
+due to limitations in the results returned by the API.
+
+For more information on inaccuracies, see issue
+[#2](https://github.com/jstrieb/github-stats/issues/2),
+[#3](https://github.com/jstrieb/github-stats/issues/3), and
+[#13](https://github.com/jstrieb/github-stats/issues/13).
 
 # Installation
 
@@ -61,16 +66,29 @@ caches statistics for your repositories. For more information, see issue
    Personal access token must have permissions: `read:user` and `repo`. Copy
    the access token when it is generated – if you lose it, you will have to
    regenerate the token.
+   - Some users are reporting that it can take a few minutes for the personal
+     access token to work. For more, see 
+     [#30](https://github.com/jstrieb/github-stats/issues/30).
 2. Click [here](https://github.com/jstrieb/github-stats/generate) to create a
-   fork of this repository
+   copy of this repository. Note: this is not the same as forking a copy
+   because it copies everything fresh, without the huge commit history. 
 3. If this is the README of your fork, click [this
    link](../../settings/secrets/actions) to go to the "Secrets" page.
    Otherwise, go to the "Settings" tab of the newly-created repository and go
    to the "Secrets" page (bottom left).
 4. Create a new secret with the name `ACCESS_TOKEN` and paste the copied
    personal access token as the value.
-5. If you want to ignore certain repos, add them (separated by commas) to a new
-   secret—created as before—called `EXCLUDED`.
+5. It is possible to change the type of statistics reported.
+   - To ignore certain repos, add them (in owner/name format e.g.,
+     `jstrieb/github-stats`) separated by commas to a new secret—created as
+     before—called `EXCLUDED`.
+   - To ignore certain languages, add them (separated by commas) to a new
+     secret called `EXCLUDED_LANGS`.
+   - To show statistics only for "owned" repositories and not forks with
+     contributions, add an environment variable (under the `env` header in the
+     [main
+     workflow](https://github.com/jstrieb/github-stats/blob/master/.github/workflows/main.yml))
+     called `EXCLUDE_FORKED_REPOS` with a value of `true`.
 6. Go to the [Actions
    Page](../../actions?query=workflow%3A"Generate+Stats+Images") and press "Run
    Workflow" on the right side of the screen to generate images for the first
@@ -81,6 +99,32 @@ caches statistics for your repositories. For more information, see issue
 8. Link back to this repository so that others can generate their own
    statistics images.
 9. Star this repo if you like it!
+
+
+# Support the Project
+
+There are a few ways to support this project.
+
+Most importantly: star this repository and follow me on GitHub. These things
+motivate me to to keep sharing what I build, and they provide validation that
+my work is appreciated. In the same vein, please consider sharing the project
+on platforms like Reddit and Twitter.
+
+Stars on GitHub also help me gauge who is making use of the project – since I
+do not include tracking or analytics in this or any project, I have no idea how
+many people use what I build unless they deliberately take action to notify me.
+If GitHub is not your style, reach out to me on my [contact
+page](https://jstrieb.github.io/about/#contact) and say "hello" instead! 
+
+If you are insistent on spending money to show your support, I encourage you to
+make a generous donation to one of the following organizations. By advocating
+for Internet freedoms, organizations like these help me to feel comfortable
+releasing work publicly on the Web.
+
+- [Electronic Frontier Foundation](https://supporters.eff.org/donate/)
+- [Signal Foundation](https://signal.org/donate/)
+- [Mozilla](https://donate.mozilla.org/en-US/)
+- [The Internet Archive](https://archive.org/donate/index.php)
 
 
 # Related Projects

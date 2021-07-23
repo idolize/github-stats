@@ -7,7 +7,7 @@ on:
   push:
     branches: [ master ]
   schedule:
-    - cron: "0 * * * *"
+    - cron: "5 0 * * *"
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in
@@ -54,6 +54,8 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         EXCLUDED: ${{ secrets.EXCLUDED }}
+        EXCLUDED_LANGS: ${{ secrets.EXCLUDED_LANGS }}
+        EXCLUDE_FORKED_REPOS: false
 
     # Commits all changed files to the repository
     - name: Commit to the repo
